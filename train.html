@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="train.css" type="text/css">
+    <title>TrainStation</title>
+</head>
+<body>
+    <div class="container">
+        <div class="jumbotron">
+                <h1 id="h1">The Train To Take...</h1>
+                <h3 id="h3">The Time To Wait...</h3>
+        </div>
+    </div>
+
+    <div id="table-border">
+    <table class="table">
+        <h4 id="h4">Current Train Schedule</h4>
+        <thead id="thead">
+            <tr>
+                <th>Train Name</th>
+                <th>Destination</th>
+                <th>Frequency (min)</th>
+                <th>Next Arrival</th>
+                <th>Minutes Away</th>
+            </tr>
+        </thead>
+        <tbody  id="new-train-info">
+           
+        </tbody>
+    </table>
+    </div>
+
+    <form>
+            <div id="form-border">
+            <div class="form-group">
+                <h4 id="h4">Add Train</h4>
+                <label for="Train Name">Train Name</label>
+                <input type="train" class="form-control" id="train-name" aria-describedby="Enter Train">
+            </div>
+
+            <div class="form-group">
+                <label for="Destination">Destination</label>
+                <input type="destination" class="form-control" id="destination-name">
+            </div>
+
+            <div class="form-group">
+                <label for="FirstTrain">First Train Time (HH:mm - Military Time)</label>
+                <input type="first-train" class="form-control" id="first-train" aria-describedby="first-train">
+            </div>
+
+            <div class="form-group">
+                <label for="Frequency">Frequency (Min)</label>
+                <input type="frequency" class="form-control" id="frequency">
+            </div>
+
+            <button type="submit" class="btn btn-primary" id="add-train">Submit</button>
+            </div>
+    </form>
+    <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.js"></script>
+    <script src="train.js"></script>
+</body>
+</html>
