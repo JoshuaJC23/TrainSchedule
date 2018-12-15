@@ -35,7 +35,7 @@ $("#add-train").click(function(event) {
     var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
     console.log("Difference in Time: " + diffTime);
 
-    var tRemainder = diffTime % frequency;
+    var tRemainder = diffTime % (frequency * 1000 * 60);
     console.log(tRemainder);
 
     var tMinutesTillTrain = frequency - tRemainder;
@@ -44,6 +44,7 @@ $("#add-train").click(function(event) {
     var nextTrain = moment().add(tMinutesTillTrain, "minutes");
 
     var nextTrainConverted = moment(nextTrain).format("HH:mm a");
+    debugger;
     // console.log("Arrival Time: " + moment(nextTrain).format("HH:mm"));
     console.log(nextTrainConverted);
     console.log(train);
@@ -52,11 +53,12 @@ $("#add-train").click(function(event) {
     console.log(frequency);
 
     trainData.ref().push({
+        startTime: startTime,
         train: train,
         destination: destination,
         frequency: frequency,
         nextTrain: nextTrain.format("HH:mm"),
-        tMinutesTillTrain: tMinutesTillTrain
+        tMinutesTillTrain: tMinutesTillTrain,
     }) ;
 
 
@@ -75,13 +77,17 @@ $("#add-train").click(function(event) {
         console.log(snapshot.val().startTime);
         // console.log(snapshot.val().frequency);
         // console.log(snapshot.val().tMinutesTillTrain);
-        
+        var firstTimeConverted = moment(startTime).subtract(1, "years");
+        var tMinutesTillTrain = frequency - moment().diff(firstTimeConverted,"minutes") % frequency
+
+        var nextTrain = moment().add(tMinutesTillTrain, "minutes").format("HH:mm")
+
         $("#new-train-info").append("<tr class = 'well'><td class = 'train-name'>" + 
         snapshot.val().train +
         "</td><td class = 'destination'>" + snapshot.val().destination +
         "</td><td class = 'frequency'>" + snapshot.val().frequency +
-        "</td><td class = 'startTime'>" + snapshot.val().nextTrain +
-        "</td><td class = 'tminutesTillTrain'>" + snapshot.val().tMinutesTillTrain + "</td></tr>");
+        "</td><td class = 'startTime'>" + nextTrain +
+        "</td><td class = 'tminutesTillTrain'>" + tMinutesTillTrain + "</td></tr>");
 
 
     }), function(errorObject) {
