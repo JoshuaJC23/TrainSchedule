@@ -14,6 +14,7 @@
   firebase.initializeApp(config);
 
     var trainData = firebase.database();
+    
 
 // make function to take in put and append to schedule
 $("#add-train").click(function(event) {
@@ -45,7 +46,6 @@ $("#add-train").click(function(event) {
     var nextTrainConverted = moment(nextTrain).format("HH:mm a");
     // console.log("Arrival Time: " + moment(nextTrain).format("HH:mm"));
     console.log(nextTrainConverted);
-
     console.log(train);
     console.log(destination);
     console.log(startTime);
@@ -55,16 +55,13 @@ $("#add-train").click(function(event) {
         train: train,
         destination: destination,
         frequency: frequency,
-        nextTrain: nextTrain.moment().format("HH:mm"),
+        nextTrain: nextTrain.format("HH:mm"),
         tMinutesTillTrain: tMinutesTillTrain
     }) ;
 
-    // $("#train-name").val("");
-    // $("#destination-name").val("");
-    // $("#first-train").val("");
-    // $("#frequency").val("");
 
 });
+
 
     trainData.ref().on("child_added", function(snapshot) {
 
@@ -75,41 +72,17 @@ $("#add-train").click(function(event) {
 
         console.log(snapshot.val().train);
         console.log(snapshot.val().destination);
-        console.log(snapshot.val().nextTrain);
-        console.log(snapshot.val().frequency);
-        console.log(snapshot.val().tMinutesTillTrain);
+        console.log(snapshot.val().startTime);
+        // console.log(snapshot.val().frequency);
+        // console.log(snapshot.val().tMinutesTillTrain);
         
         $("#new-train-info").append("<tr class = 'well'><td class = 'train-name'>" + 
         snapshot.val().train +
         "</td><td class = 'destination'>" + snapshot.val().destination +
         "</td><td class = 'frequency'>" + snapshot.val().frequency +
         "</td><td class = 'startTime'>" + snapshot.val().nextTrain +
-        "</td></tr>");
+        "</td><td class = 'tminutesTillTrain'>" + snapshot.val().tMinutesTillTrain + "</td></tr>");
 
-        // var frequency = "";
-
-        // var startTime = "";
-
-        // var firstTimeConverted = moment(startTime, "HH:mm").subtract(1, "years");
-        // console.log(firstTimeConverted);
-
-        // var currentTime = moment();
-        // console.log("Current Time: " + moment(currentTime).format("HH:mm"));
-
-        // var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
-        // console.log("Difference in Time: " + diffTime);
-
-        // var tRemainder = diffTime % frequency;
-        // console.log(tRemainder);
-
-        // var tMinutesTillTrain = frequency - tRemainder;
-        // console.log("Minutes Till Train: " + tMinutesTillTrain);
-
-        // var nextTrain = moment().add(tMinutesTillTrain, "minutes");
-
-        // var nextTrainConverted = moment(nextTrain).format("HH:mm a");
-        // // console.log("Arrival Time: " + moment(nextTrain).format("HH:mm"));
-        // console.log(nextTrainConverted);
 
     }), function(errorObject) {
         console.log("Errors handled: " + errorObject.code);
