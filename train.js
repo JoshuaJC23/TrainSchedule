@@ -78,7 +78,7 @@ $("#add-train").click(function(event) {
         // console.log(snapshot.val().frequency);
         // console.log(snapshot.val().tMinutesTillTrain);
         var firstTimeConverted = moment(startTime).subtract(1, "years");
-        var tMinutesTillTrain = frequency - moment().diff(firstTimeConverted,"minutes") % frequency
+        var tMinutesTillTrain = frequency - moment().diff(firstTimeConverted    ,"minutes") % frequency
 
         var nextTrain = moment().add(tMinutesTillTrain, "minutes").format("HH:mm")
 
